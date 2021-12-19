@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// Purpose: To hold the functionality of the COME BACK TO
+/// Purpose: To hold the functionality of the Generating each Test
+///          by Setting up the Colour word and Buttons
 /// Created Date: 18th of December 2021
 /// Author/s: Callum McDermott
 /// Major Revision History: 
-///     - 18th of December 2021: Core functionialty added
+///     - 18th of December 2021: Core functionialty added  
 /// </summary>
 
 public class ColourWord : MonoBehaviour
 {
 
     [System.Serializable]
-    private struct Colours
+    public struct Colours
     {
         public string[] colourText;
         public Color[] colours;
-        public int currentColourNum;
-        public int currentColourWordNum;
     }
+    [HideInInspector] public int currentColourNum;
+    private int currentColourWordNum;
+    private int previousColourNum;
+
     [System.Serializable]
     private struct ButtonTexts
     {
@@ -28,37 +31,32 @@ public class ColourWord : MonoBehaviour
         public Text correctButtonText;
     }
 
-    [SerializeField] private Colours colourList;
-    [SerializeField] private ButtonTexts buttonList;
+    [SerializeField] public Colours colourList;
+    [SerializeField] private ButtonTexts buttonTextList;
 
-
-    private List<int> usedColourWordNums = new List<int>();
-
-    private int randColourWordNum;
-    private int randColourNum;
-    private int previousColourNum;
-
-    private Text colourWord;
-
+    public Text colourWord;
+    private Text roundText;
 
     // Start is called before the first frame update
     void Start()
     {
         colourWord = gameObject.transform.Find("Colour Word").GetComponent<Text>();
+        roundText = gameObject.transform.Find("Rounds").GetComponent<Text>();
+        ScoreManager.ResetScores();
+        GenerateTestLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //SetColourWord();
-        ColourWordTest();
+        // ColourWordTest();
+        
     }
 
     private void SetColourWord()
     {
-
-        randColourWordNum = Random.RandomRange(0, colourList.colourText.Length);
-        randColourNum = Random.RandomRange(0, colourList.colours.Length);
+        int randColourWordNum = Random.RandomRange(0, colourList.colourText.Length);
+        int randColourNum = Random.RandomRange(0, colourList.colours.Length);
 
         // Checks to see if the colour word is the same as the colour and 
         // Checks to see if the next colour is the same as the previous colour
@@ -69,7 +67,7 @@ public class ColourWord : MonoBehaviour
                 if (i == randColourWordNum)
                 {
                     colourWord.text = colourList.colourText[i].ToString();
-                    colourList.currentColourWordNum = i;
+                    currentColourWordNum = i;
                 }
             }
             for (int t = 0; t < colourList.colours.Length; t++)
@@ -77,7 +75,7 @@ public class ColourWord : MonoBehaviour
                 if (t == randColourNum)
                 {
                     colourWord.color = colourList.colours[t];
-                    colourList.currentColourNum = t;
+                    currentColourNum = t;
                     previousColourNum = randColourNum;
                 }
             }
@@ -90,26 +88,25 @@ public class ColourWord : MonoBehaviour
 
     private void SetButtons()
     {
+        List<int> usedColourWordNums = new List<int>();
         
-        usedColourWordNums.Clear();
-        for (int i = 0; i < buttonList.buttonTexts.Length; i++)
+        for (int i = 0; i < buttonTextList.buttonTexts.Length; i++)
         {
-            buttonList.buttonTexts[i].text = null;
+            buttonTextList.buttonTexts[i].text = null;
         }
 
-        usedColourWordNums.Add(colourList.currentColourNum);
-        usedColourWordNums.Add(colourList.currentColourWordNum);
+        usedColourWordNums.Add(currentColourNum);
+        usedColourWordNums.Add(currentColourWordNum);
 
-        for (int i = 0; i < buttonList.buttonTexts.Length; i++)
+        for (int i = 0; i < buttonTextList.buttonTexts.Length; i++)
         {
-            randColourWordNum = Random.RandomRange(0, colourList.colourText.Length);
+            int randColour = Random.RandomRange(0, colourList.colourText.Length);
 
             // Checks to see if the number that was randomly generated has been used already
-            if (!usedColourWordNums.Contains(randColourWordNum))
+            if (!usedColourWordNums.Contains(randColour))
             {
-                buttonList.buttonTexts[i].text = colourList.colourText[randColourWordNum].ToString();
-                usedColourWordNums.Add(randColourWordNum);
-                previousColourNum = randColourNum;
+                buttonTextList.buttonTexts[i].text = colourList.colourText[randColour].ToString();
+                usedColourWordNums.Add(randColour);
             }
             else
             {
@@ -117,31 +114,38 @@ public class ColourWord : MonoBehaviour
             }   
         }
         //Get a random button 
-        int randomButtonNumOne = Random.RandomRange(0, buttonList.buttonTexts.Length);
+        int randomButtonNumOne = Random.RandomRange(0, buttonTextList.buttonTexts.Length);
         // Set that button to be the correct word for the colour shown
-        buttonList.buttonTexts[randomButtonNumOne].text = colourList.colourText[colourList.currentColourNum].ToString();
+        buttonTextList.buttonTexts[randomButtonNumOne].text = colourList.colourText[currentColourNum].ToString();
 
         // Get another random button
-        int randomButtonNumTwo = Random.RandomRange(0, buttonList.buttonTexts.Length);
+        int randomButtonNumTwo = Random.RandomRange(0, buttonTextList.buttonTexts.Length);
         // Checks if both button are not the same
         if (randomButtonNumOne != randomButtonNumTwo)
         {
             // Set this button to be the word shown
-            buttonList.buttonTexts[randomButtonNumTwo].text = colourList.colourText[colourList.currentColourWordNum].ToString();
+            buttonTextList.buttonTexts[randomButtonNumTwo].text = colourList.colourText[currentColourWordNum].ToString();
         }
         else
         {
             randomButtonNumTwo++;
             // Checks to see if the button is within the array length
-            if (randomButtonNumTwo >= buttonList.buttonTexts.Length)
+            if (randomButtonNumTwo >= buttonTextList.buttonTexts.Length)
             {
                 randomButtonNumTwo = randomButtonNumOne - 1;
             }
-           
-            buttonList.buttonTexts[randomButtonNumTwo].text = colourList.colourText[colourList.currentColourWordNum].ToString();
+            buttonTextList.buttonTexts[randomButtonNumTwo].text = colourList.colourText[currentColourWordNum].ToString();
         }
     }
 
+    public void GenerateTestLevel()
+    {
+        ScoreManager.m_currentRound++;
+        roundText.text = "Round: " + ScoreManager.m_currentRound.ToString();
+        SetColourWord();
+        SetButtons();
+        ScoreManager.m_startAnswerTimer = true;
+    }
 
     private void ColourWordTest()
     {
