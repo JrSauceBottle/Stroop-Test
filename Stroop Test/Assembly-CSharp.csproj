@@ -53,11 +53,12 @@
     <UnityVersion>2020.3.24f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ColourWord.cs" />
     <Compile Include="Assets\Scripts\Answer.cs" />
-    <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Results.cs" />
+    <Compile Include="Assets\Scripts\ColourWord.cs" />
+    <Compile Include="Assets\Scripts\LoadScene.cs" />
+    <Compile Include="Assets\Scripts\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

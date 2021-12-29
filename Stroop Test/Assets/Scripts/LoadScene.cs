@@ -20,4 +20,9 @@ public class LoadScene : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
+
+    public static void ExitGame()
+    {
+        Application.Quit();
+    }
 }

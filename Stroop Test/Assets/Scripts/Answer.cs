@@ -24,8 +24,8 @@ public class Answer : MonoBehaviour
 
     public void CheckAnswer()
     {
-        ScoreManager.EndTest();
-        if (buttonText.text == colourWord.colourList.colourText[colourWord.currentColourNum])
+        
+        if (buttonText.text == colourWord.eightColourList.colourText[colourWord.currentColourNum])
         {
             Debug.Log("Correct");
             ScoreManager.ScoreTracker();
@@ -34,6 +34,7 @@ public class Answer : MonoBehaviour
         {
             Debug.Log("Incorrect");
         }
+        ScoreManager.EndTest();
         ScoreManager.m_startAnswerTimer = false;
         ScoreManager.AddAnswerTime();
         colourWord.GenerateTestLevel();
