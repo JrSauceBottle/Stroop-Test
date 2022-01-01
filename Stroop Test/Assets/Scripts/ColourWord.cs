@@ -16,13 +16,7 @@ public class ColourWord : MonoBehaviour
 {
 
     [System.Serializable]
-    public struct EightColours
-    {
-        public List<string> colourText;
-        public List<Color> colours;
-    }
-    [System.Serializable]
-    public struct FourColours
+    public struct Colours
     {
         public List<string> colourText;
         public List<Color> colours;
@@ -32,8 +26,6 @@ public class ColourWord : MonoBehaviour
     private int currentColourWordNum;
     private int previousColourNum;
 
-    
-
     [System.Serializable]
     private struct ButtonTexts
     {
@@ -41,65 +33,51 @@ public class ColourWord : MonoBehaviour
         public Text correctButtonText;
     }
 
-    [SerializeField] public EightColours eightColourList;
-    [SerializeField] private FourColours fourColourList;
+    [Tooltip("Add a colour, the text and colour need to be the same element number")]
+    [SerializeField] public Colours colourList;
+    [Tooltip("Add a button text")]
     [SerializeField] private ButtonTexts buttonTextList;
 
-    public Text colourWord;
+    [HideInInspector] public Text colourWord;
     private Text roundText;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (Settings.fourColours)
-        {
-            for (int i = 0; i < eightColourList.colours.Count; i++)
-            {
-                if (i > 3)
-                {
-                    eightColourList.colours.RemoveAt(i);
-                    eightColourList.colourText.RemoveAt(i);
-                    i--;
-                }
-            }
+        FourColourCheck();
 
-            SetButtons(); 
-        } 
         colourWord = gameObject.transform.Find("Colour Word").GetComponent<Text>();
-        roundText = gameObject.transform.Find("Rounds").GetComponent<Text>();
+        roundText = gameObject.transform.Find("Rounds_Text").GetComponent<Text>();
         ScoreManager.ResetScores();
-        GenerateTestLevel();
+        GenerateTestRound();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // ColourWordTest();
-        
-    }
-
+    /// <summary>
+    /// SetColourWord Sets the Colour of the colour word but also 
+    /// Checks to see if the Colour was used previously
+    /// </summary>
     private void SetColourWord()
     {
-        int randColourWordNum = Random.RandomRange(0, eightColourList.colourText.ToArray().Length);
-        int randColourNum = Random.RandomRange(0, eightColourList.colours.ToArray().Length);
+        int randColourWordNum = Random.RandomRange(0, colourList.colourText.ToArray().Length);
+        int randColourNum = Random.RandomRange(0, colourList.colours.ToArray().Length);
 
         // Checks to see if the colour word is the same as the colour and 
         // Checks to see if the next colour is the same as the previous colour
         if (randColourNum != randColourWordNum && randColourNum != previousColourNum)
         {
-            for (int i = 0; i < eightColourList.colourText.ToArray().Length; i++)
+            for (int i = 0; i < colourList.colourText.ToArray().Length; i++)
             {
                 if (i == randColourWordNum)
                 {
-                    colourWord.text = eightColourList.colourText[i].ToString();
+                    colourWord.text = colourList.colourText[i].ToString();
                     currentColourWordNum = i;
                 }
             }
-            for (int t = 0; t < eightColourList.colours.ToArray().Length; t++)
+            for (int t = 0; t < colourList.colours.ToArray().Length; t++)
             {
                 if (t == randColourNum)
                 {
-                    colourWord.color = eightColourList.colours[t];
+                    colourWord.color = colourList.colours[t];
                     currentColourNum = t;
                     previousColourNum = randColourNum;
                 }
@@ -111,6 +89,11 @@ public class ColourWord : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// When there are more than 4 colours the button will have to be randomized 
+    /// The Colour word text gets added to a button and the Colour word colour is 
+    /// Also added and the other 2 buttons are randomized
+    /// </summary>
     private void SetButtonsRandom()
     {
         List<int> usedColourWordNums = new List<int>();
@@ -125,12 +108,12 @@ public class ColourWord : MonoBehaviour
 
         for (int i = 0; i < buttonTextList.buttonTexts.Length; i++)
         {
-            int randColour = Random.RandomRange(0, eightColourList.colourText.ToArray().Length);
+            int randColour = Random.RandomRange(0, colourList.colourText.ToArray().Length);
 
             // Checks to see if the number that was randomly generated has been used already
             if (!usedColourWordNums.Contains(randColour))
             {
-                buttonTextList.buttonTexts[i].text = eightColourList.colourText[randColour].ToString();
+                buttonTextList.buttonTexts[i].text = colourList.colourText[randColour].ToString();
                 usedColourWordNums.Add(randColour);
             }
             else
@@ -141,7 +124,7 @@ public class ColourWord : MonoBehaviour
         //Get a random button 
         int randomButtonNumOne = Random.RandomRange(0, buttonTextList.buttonTexts.Length);
         // Set that button to be the correct word for the colour shown
-        buttonTextList.buttonTexts[randomButtonNumOne].text = eightColourList.colourText[currentColourNum].ToString();
+        buttonTextList.buttonTexts[randomButtonNumOne].text = colourList.colourText[currentColourNum].ToString();
 
         // Get another random button
         int randomButtonNumTwo = Random.RandomRange(0, buttonTextList.buttonTexts.Length);
@@ -149,7 +132,7 @@ public class ColourWord : MonoBehaviour
         if (randomButtonNumOne != randomButtonNumTwo)
         {
             // Set this button to be the word shown
-            buttonTextList.buttonTexts[randomButtonNumTwo].text = eightColourList.colourText[currentColourWordNum].ToString();
+            buttonTextList.buttonTexts[randomButtonNumTwo].text = colourList.colourText[currentColourWordNum].ToString();
         }
         else
         {
@@ -159,25 +142,51 @@ public class ColourWord : MonoBehaviour
             {
                 randomButtonNumTwo = randomButtonNumOne - 1;
             }
-            buttonTextList.buttonTexts[randomButtonNumTwo].text = eightColourList.colourText[currentColourWordNum].ToString();
+            buttonTextList.buttonTexts[randomButtonNumTwo].text = colourList.colourText[currentColourWordNum].ToString();
         }
     }
 
+    /// <summary>
+    /// SetButtons is called when there are only 4 colours
+    /// </summary>
     private void SetButtons()
     {
         for (int i = 0; i < buttonTextList.buttonTexts.Length; i++)
         {
-            buttonTextList.buttonTexts[i].text = eightColourList.colourText[i];
+            buttonTextList.buttonTexts[i].text = colourList.colourText[i];
         }
-
     }
 
-    public void GenerateTestLevel()
+    /// <summary>
+    /// FourColourCheck checks if the users has chosen 4 colours then delete from 
+    /// the respective arrays
+    /// </summary>
+    private void FourColourCheck()
     {
-        ScoreManager.thisRound.roundNumber++;
-        roundText.text = "Round: " + ScoreManager.thisRound.roundNumber.ToString();
+        if (Settings.m_fourColours)
+        {
+            for (int i = 0; i < colourList.colours.Count; i++)
+            {
+                if (i > 3)
+                {
+                    colourList.colours.RemoveAt(i);
+                    colourList.colourText.RemoveAt(i);
+                    i--;
+                }
+            }
+            SetButtons();
+        }
+    }
+
+    /// <summary>
+    /// GenerateTestRound Generates a round of the test
+    /// </summary>
+    public void GenerateTestRound()
+    {
+        ScoreManager.m_currentRound.roundNumber++;
+        roundText.text = "Round: " + ScoreManager.m_currentRound.roundNumber.ToString() + " / " + ScoreManager.m_maxRounds;
         SetColourWord();
-        if (!Settings.fourColours)
+        if (!Settings.m_fourColours)
         {
             SetButtonsRandom();
         }
@@ -185,12 +194,4 @@ public class ColourWord : MonoBehaviour
         ScoreManager.m_startAnswerTimer = true;
     }
 
-    private void ColourWordTest()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SetColourWord();
-            SetButtonsRandom();
-        }
-    }
 }

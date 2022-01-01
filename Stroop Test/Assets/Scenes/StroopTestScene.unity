@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 10633223}
   - component: {fileID: 10633222}
   m_Layer: 5
-  m_Name: Rounds
+  m_Name: Rounds_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 650, y: 440}
-  m_SizeDelta: {x: 300, y: 100}
+  m_AnchoredPosition: {x: 50, y: 440}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &10633222
 MonoBehaviour:
@@ -182,11 +182,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
+    m_FontSize: 52
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 4
-    m_MaxSize: 40
+    m_MaxSize: 52
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -213,6 +213,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ScoreManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8785630848333652480, guid: 80b9c2c5e07663f499f003943c0d494f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8785630848333652494, guid: 80b9c2c5e07663f499f003943c0d494f,
         type: 3}
@@ -268,6 +273,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8785630848333652495, guid: 80b9c2c5e07663f499f003943c0d494f,
+        type: 3}
+      propertyPath: maxRounds
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80b9c2c5e07663f499f003943c0d494f, type: 3}
@@ -1565,7 +1575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentColourNum: 0
-  eightColourList:
+  colourList:
     colourText:
     - Red
     - Blue
@@ -1573,28 +1583,17 @@ MonoBehaviour:
     - Yellow
     - Purple
     - Orange
-    - Black
     - White
+    - Black
     colours:
-    - {r: 0.8018868, g: 0, b: 0, a: 1}
-    - {r: 0.003915994, g: 0.018224014, b: 0.8301887, a: 1}
-    - {r: 0.06524806, g: 0.8301887, b: 0.019579919, a: 1}
-    - {r: 0.9468057, g: 1, b: 0, a: 1}
-    - {r: 0.6001362, g: 0, b: 0.8301887, a: 1}
-    - {r: 1, g: 0.4768409, b: 0, a: 1}
-    - {r: 0, g: 0, b: 0, a: 1}
+    - {r: 0.8490566, g: 0, b: 0, a: 1}
+    - {r: 0, g: 0.100456126, b: 0.8773585, a: 1}
+    - {r: 0.016207993, g: 0.6886792, b: 0, a: 1}
+    - {r: 1, g: 0.95441294, b: 0, a: 1}
+    - {r: 0.63851404, g: 0, b: 0.9339623, a: 1}
+    - {r: 1, g: 0.5773492, b: 0, a: 1}
     - {r: 1, g: 1, b: 1, a: 1}
-  fourColourList:
-    colourText:
-    - Red
-    - Blue
-    - Green
-    - Yellow
-    colours:
-    - {r: 0.8, g: 0, b: 0, a: 1}
-    - {r: 0.003921569, g: 0.019607844, b: 0.83137256, a: 1}
-    - {r: 0.06666667, g: 0.83137256, b: 0.019607844, a: 1}
-    - {r: 0.94509804, g: 1, b: 0, a: 1}
+    - {r: 0, g: 0, b: 0, a: 1}
   buttonTextList:
     buttonTexts:
     - {fileID: 1314639661}

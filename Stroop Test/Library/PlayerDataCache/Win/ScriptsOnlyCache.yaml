@@ -11,7 +11,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -53,23 +52,23 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1534}
+      Script: {instanceID: 1468}
     - Class: 114
-      Script: {instanceID: 2264}
+      Script: {instanceID: 1538}
     - Class: 114
-      Script: {instanceID: 2692}
+      Script: {instanceID: 2694}
     - Class: 114
-      Script: {instanceID: 2864}
+      Script: {instanceID: 2866}
     - Class: 114
-      Script: {instanceID: 3100}
+      Script: {instanceID: 3102}
     - Class: 114
-      Script: {instanceID: 3346}
+      Script: {instanceID: 3348}
     - Class: 114
-      Script: {instanceID: 3466}
+      Script: {instanceID: 3468}
     - Class: 114
-      Script: {instanceID: 4134}
+      Script: {instanceID: 4136}
     - Class: 114
-      Script: {instanceID: 5700}
+      Script: {instanceID: 5702}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -104,23 +103,23 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1534}
+      Script: {instanceID: 1468}
     - Class: 114
-      Script: {instanceID: 2264}
+      Script: {instanceID: 1538}
     - Class: 114
-      Script: {instanceID: 2416}
+      Script: {instanceID: 2418}
     - Class: 114
-      Script: {instanceID: 2692}
+      Script: {instanceID: 2694}
     - Class: 114
-      Script: {instanceID: 2864}
+      Script: {instanceID: 2866}
     - Class: 114
-      Script: {instanceID: 3100}
+      Script: {instanceID: 3102}
     - Class: 114
-      Script: {instanceID: 3346}
+      Script: {instanceID: 3348}
     - Class: 114
-      Script: {instanceID: 3466}
+      Script: {instanceID: 3468}
     - Class: 114
-      Script: {instanceID: 5700}
+      Script: {instanceID: 5702}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -155,27 +154,27 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1534}
+      Script: {instanceID: 1468}
     - Class: 114
-      Script: {instanceID: 1832}
+      Script: {instanceID: 1538}
     - Class: 114
-      Script: {instanceID: 2264}
+      Script: {instanceID: 1836}
     - Class: 114
-      Script: {instanceID: 2476}
+      Script: {instanceID: 2478}
     - Class: 114
-      Script: {instanceID: 2692}
+      Script: {instanceID: 2694}
     - Class: 114
-      Script: {instanceID: 2864}
+      Script: {instanceID: 2866}
     - Class: 114
-      Script: {instanceID: 3100}
+      Script: {instanceID: 3102}
     - Class: 114
-      Script: {instanceID: 3346}
+      Script: {instanceID: 3348}
     - Class: 114
-      Script: {instanceID: 3466}
+      Script: {instanceID: 3468}
     - Class: 114
-      Script: {instanceID: 5074}
+      Script: {instanceID: 5076}
     - Class: 114
-      Script: {instanceID: 5700}
+      Script: {instanceID: 5702}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -195,6 +194,12 @@ ScriptsOnlyBuild:
     - Class: 850595691
       Script: {instanceID: 0}
   scriptHashData:
+  - hash:
+      serializedVersion: 2
+      Hash: 699619b86d9359741a4f58540298c80b
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
   - hash:
       serializedVersion: 2
       Hash: 5ab533713adae59372fb3e10a585c186
@@ -293,12 +298,6 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 699619b86d9359741a4f58540298c80b
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
-  - hash:
-      serializedVersion: 2
       Hash: f1d735cc1a21c3704ab52568f4fbfcf8
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner
@@ -323,7 +322,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: 4b099f802e35b7ed0dec52878b21e0e0
+      Hash: 73682270f5a03eaea39633d7e19640f3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ScoreManager
@@ -539,7 +538,7 @@ ScriptsOnlyBuild:
     className: PositionAsUV1
   - hash:
       serializedVersion: 2
-      Hash: 2650341954647e68667bf58427feb506
+      Hash: 0cda54bae789194c28f3d028c97ebf4a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Results
@@ -671,7 +670,7 @@ ScriptsOnlyBuild:
     className: SpriteLibraryAsset
   - hash:
       serializedVersion: 2
-      Hash: 62c87fe1a76d0389bb6eccc07473335c
+      Hash: ef758d3258a9a1e312c24ab518b32c30
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ColourWord
@@ -746,4 +745,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/StartScene.unity
   - Assets/Scenes/StroopTestScene.unity
   - Assets/Scenes/ResultScene.unity
-  playerPath: Z:/JrSauceBottle/jobs/Tests/Stroop-Test/Stroop Test/Builds/Stroop Test.exe
+  playerPath: Z:/JrSauceBottle/jobs/Tests/Submission/Stroop-Test-Build/Stroop Test.exe

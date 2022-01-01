@@ -11,28 +11,29 @@ using UnityEngine.UI;
 /// </summary>
 public class Settings : MonoBehaviour
 {
-    public static bool fourColours = true;
-    private static GameObject fourColourCheck;
-    private static GameObject eightColourCheck;
+
+    public static bool m_fourColours = true;
+    private static GameObject fourColourTick;
+    private static GameObject eightColourTick;
 
     private void Start()
     {
-        fourColourCheck = transform.Find("FourColours").Find("Button").Find("Image").gameObject;
-        eightColourCheck = transform.Find("EightColours").Find("Button").Find("Image").gameObject;
+        fourColourTick = transform.Find("FourColours").Find("Button").Find("Image").gameObject;
+        eightColourTick = transform.Find("EightColours").Find("Button").Find("Image").gameObject;
 
     }
 
     public static void FourColours()
     {
-        eightColourCheck.SetActive(false);
-        fourColours = true;
-        fourColourCheck.SetActive(true);
+        eightColourTick.SetActive(false);
+        m_fourColours = true;
+        fourColourTick.SetActive(true);
     }
     public static void EightColours()
     {
-        fourColourCheck.SetActive(false);
-        fourColours = false;
-        eightColourCheck.SetActive(true);
+        fourColourTick.SetActive(false);
+        m_fourColours = false;
+        eightColourTick.SetActive(true);
     }
 
    

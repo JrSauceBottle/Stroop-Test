@@ -11,10 +11,24 @@ using UnityEngine.UI;
 /// </summary>
 public class Results : MonoBehaviour
 {
-    public Text correctScoreText;
-    public Text timeTakenText;
-    public Text averageTimeTakenText;
-    public Text roundTimeResults;
+    //Variables Set in the Inspector
+    public GameObject roundTimeText;
+    [Tooltip("Set the offset for the Round time Text")]
+    public Vector2 roundTimeTextOffset;
+    [Tooltip("Set the offset for the Best score text")]
+    public float bestScoreTextYOffset;
+    //Text Gameobjects
+    public static GameObject m_roundTimeText;
+    public static Text bestScore;
+    public static Text roundTimeResults;
+    [HideInInspector] public Text correctScoreText;
+    [HideInInspector] public Text timeTakenText;
+    [HideInInspector] public Text averageTimeTakenText;
+
+    //Offsets for each roundText 
+    private static Vector2 m_roundTimeTextOffset;
+    private static float currentYOffset;
+    private static float m_bestScoreTextYOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +37,11 @@ public class Results : MonoBehaviour
         timeTakenText = gameObject.transform.Find("Scores Text").Find("TimeTakenScoreText").GetComponent<Text>();
         averageTimeTakenText = gameObject.transform.Find("Scores Text").Find("RoundTimeScorText").GetComponent<Text>();
         roundTimeResults = gameObject.transform.Find("RoundTimeResults").GetComponent<Text>();
-
+        bestScore = gameObject.transform.Find("BestScore_Text").GetComponent<Text>();
+        m_roundTimeText = roundTimeText;
+        m_bestScoreTextYOffset = bestScoreTextYOffset;
+        m_roundTimeTextOffset = roundTimeTextOffset;
+        currentYOffset = m_roundTimeTextOffset.y;
         FinalResults();
     }
 
@@ -38,11 +56,23 @@ public class Results : MonoBehaviour
         AddRoundTimesToText();
     }
 
-    private void AddRoundTimesToText()
+    private static void AddRoundTimesToText()
     {
         foreach (var item in ScoreManager.m_listOfRounds)
         {
-            roundTimeResults.transform.GetChild(item.roundNumber - 1).GetComponent<Text>().text = "Round " + item.roundNumber + ": " + item.roundTime.ToString("F2");
+            GameObject currentText;
+
+            currentText = Instantiate(m_roundTimeText, roundTimeResults.transform);
+            currentText.transform.position = new Vector2(currentText.transform.position.x + m_roundTimeTextOffset.x, currentText.transform.position.y - currentYOffset);
+            currentYOffset += m_roundTimeTextOffset.y;
+
+            currentText.GetComponent<Text>().text = "Round " + item.roundNumber + ": " + item.roundTime.ToString("F2");
+            if (item.roundTime == ScoreManager.m_lowestTime)
+            {
+                currentText.GetComponent<Text>().color = Color.yellow;
+                bestScore.transform.position = new Vector2(bestScore.transform.position.x, currentText.GetComponent<Text>().transform.position.y + m_bestScoreTextYOffset);
+
+            }
         }
         
     }
